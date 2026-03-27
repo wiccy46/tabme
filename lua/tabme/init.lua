@@ -10,7 +10,7 @@ local default_config = {
     },
     tabline = false, -- Whether to override the tabline
     highlight = {
-        link = "Title",
+        link = "Search", -- More visible default
         bold = true,
     },
 }
@@ -39,11 +39,21 @@ function M.setup(user_config)
     end
 
     -- Setup highlighting for pinned buffer
-    vim.api.nvim_set_hl(0, "TabmePinned", config.highlight)
+    local function set_highlights()
+        vim.api.nvim_set_hl(0, "TabmePinned", config.highlight)
+    end
+
+    set_highlights()
+
+    -- Ensure highlights persist on colorscheme change
+    vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = set_highlights,
+    })
 
     -- Setup tabline if enabled
     if config.tabline then
         vim.opt.tabline = "%!v:lua.require'tabme.ui'.tabline()"
+        vim.opt.showtabline = 2 -- Always show tabline
     end
 
     -- Clear pinned buffer if it is deleted
