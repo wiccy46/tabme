@@ -2,6 +2,12 @@
 
 A Neovim plugin to pin a tab (buffer) and highlight it for easy focus.
 
+
+
+https://github.com/user-attachments/assets/b9ac9019-b576-4d1a-b1c6-b85f22e21d21
+
+
+
 ## Features
 
 - Pin a specific buffer and highlight it in the tabline.
