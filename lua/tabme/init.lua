@@ -22,6 +22,16 @@ function M.is_pinned(bufnr)
     return core.pinned_bufnr == bufnr
 end
 
+function M.format(bufnr)
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    name = (name == "") and "[No Name]" or vim.fn.fnamemodify(name, ":t")
+    
+    if M.is_pinned(bufnr) then
+        return "%#TabmePinned# [" .. name .. "] %#TabLineSel#"
+    end
+    return name
+end
+
 function M.setup(user_config)
     local config = vim.tbl_deep_extend("force", default_config, user_config or {})
 

@@ -13,12 +13,14 @@ function M.pin()
     end
     -- Trigger UI update if necessary
     vim.cmd("redrawtabline")
+    vim.api.nvim_exec_autocmds("User", { pattern = "TabmeChanged" })
 end
 
 function M.unpin()
     M.pinned_bufnr = nil
     print("Tabme: Unpinned all buffers")
     vim.cmd("redrawtabline")
+    vim.api.nvim_exec_autocmds("User", { pattern = "TabmeChanged" })
 end
 
 function M.focus()

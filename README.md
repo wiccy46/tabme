@@ -46,8 +46,27 @@ require("tabme").setup({
 })
 ```
 
-## Commands
+## Custom UI Integration (NvChad, Lualine, etc.)
 
-- `:TabmePin`: Pin/Unpin current buffer.
-- `:TabmeFocus`: Jump to the pinned buffer.
-- `:TabmeUnpin`: Unpin all.
+If you use a custom tabline or statusline plugin (e.g., NvChad, `lualine.nvim`, `bufferline.nvim`), do **not** set `tabline = true` in the `setup`. Instead, use the `is_pinned` or `format` helpers.
+
+### NvChad / Custom Tablines
+You can integrate `tabme` into your existing tabline by checking if a buffer is pinned:
+
+```lua
+-- Example: Get the formatted name with highlight if pinned
+local name = require("tabme").format(bufnr)
+```
+
+### Lualine Example
+```lua
+sections = {
+  lualine_b = {
+    {
+      function()
+        return require("tabme").is_pinned() and "📌" or ""
+      end
+    }
+  }
+}
+```
